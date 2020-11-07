@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ evaluation_table.title }}</h1>
+{% for contents in evaluation_table.evaluation_contents.all %}
+    <h3>{{ contents.title }}</h3>
+    {% for sections in contents.sections.all %}
+        <h5 style="margin-left: 50px">{{ sections.title }}</h5>
+        {% for items in sections.items.all %}
+            <p style="margin-left: 100px">{{ forloop.counter }}, ({{ items.title }}) {{ items.content }}</p>
+            {% for chooses in items.chooses.all %}
+                <p style="margin-left: 130px"><input type="radio" name="{{ items.id }}" value="{{ chooses.score }}" /> {{ chooses }}</p>
+            {% endfor %}
+
+        {% endfor %}
+
+    {% endfor %}
+
+{% endfor %}
+
+
+</body>
+</html>

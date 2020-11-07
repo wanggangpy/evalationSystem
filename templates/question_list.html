@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block container-fluid %}
+    <div class="container-fluid">
+        <div class="form-head d-flex mb-0 mb-lg-4 align-items-start">
+            <div class="mr-auto d-none d-lg-block">
+                <h2 class="text-black font-w600">问卷列表</h2>
+                <p class="mb-0">当前所有的问卷列表</p>
+            </div>
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="text-right">
+                    <h3 class="fs-20 text-black mb-0">09:62 AM</h3>
+                    <span class="fs-14">Monday, 3 Augusut 2020</span>
+                </div>
+                <a class="ml-4 text-black p-3 rounded border text-center width60" href="#">
+                    <i class="las la-cog scale5"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="d-lg-flex d-block pl-0 pr-0 border-0 align-items-end justify-content-between mb-3">
+                    <div class="">
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">
+                            <span class="btn-icon-left text-primary">
+                                <i class="fa fa-plus color-info"></i>
+                            </span>添加问卷
+                        </button>
+                        <div class="modal fade" id="basicModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">添加问卷</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-valide-with-icon" action="/add_question/" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="val-username1"
+                                                           name="val-username" placeholder="问卷标题">
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn mr-2 btn-primary">确定</button>
+                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">取消</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <a href="javascript:void(0);" class="btn bg-white mb-2 mr-2">
+                            <svg width="14" height="14" class="scale5" viewBox="0 0 20 18" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 2.25H8.5C8.5 1.42275 7.82725 0.75 7 0.75H5.5C4.67275 0.75 4 1.42275 4 2.25H1C0.586 2.25 0.25 2.58525 0.25 3C0.25 3.41475 0.586 3.75 1 3.75H4C4 4.57725 4.67275 5.25 5.5 5.25H7C7.82725 5.25 8.5 4.57725 8.5 3.75H19C19.414 3.75 19.75 3.41475 19.75 3C19.75 2.58525 19.414 2.25 19 2.25ZM5.5 3.75V2.25H7L7.00075 2.997C7.00075 2.9985 7 2.99925 7 3C7 3.00075 7.00075 3.0015 7.00075 3.003V3.75H5.5Z"
+                                      fill="#2E2E2E"/>
+                                <path d="M19 8.25H14.5C14.5 7.42275 13.8273 6.75 13 6.75H11.5C10.6727 6.75 10 7.42275 10 8.25H1C0.586 8.25 0.25 8.58525 0.25 9C0.25 9.41475 0.586 9.75 1 9.75H10C10 10.5773 10.6727 11.25 11.5 11.25H13C13.8273 11.25 14.5 10.5773 14.5 9.75H19C19.414 9.75 19.75 9.41475 19.75 9C19.75 8.58525 19.414 8.25 19 8.25ZM11.5 9.75V8.25H13L13.0007 8.997C13.0007 8.9985 13 8.99925 13 9C13 9.00075 13.0007 9.0015 13.0007 9.003V9.75H11.5Z"
+                                      fill="#2E2E2E"/>
+                                <path d="M19 14.25H8.5C8.5 13.4227 7.82725 12.75 7 12.75H5.5C4.67275 12.75 4 13.4227 4 14.25H1C0.586 14.25 0.25 14.5853 0.25 15C0.25 15.4148 0.586 15.75 1 15.75H4C4 16.5773 4.67275 17.25 5.5 17.25H7C7.82725 17.25 8.5 16.5773 8.5 15.75H19C19.414 15.75 19.75 15.4148 19.75 15C19.75 14.5853 19.414 14.25 19 14.25ZM5.5 15.75V14.25H7L7.00075 14.997C7.00075 14.9985 7 14.9992 7 15C7 15.0008 7.00075 15.0015 7.00075 15.003V15.75H5.5Z"
+                                      fill="#2E2E2E"/>
+                            </svg>
+                        </a>
+                        <div class="dropdown custom-dropdown mb-2">
+                            <div class="btn bg-white d-flex align-items-center" data-toggle="dropdown">
+                                <div class="text-left mr-3">
+                                    <span class="text-black">Newest</span>
+                                </div>
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="javascript:void(0);">4 June 2020 - 4 July 2020</a>
+                                <a class="dropdown-item" href="javascript:void(0);">5 july 2020 - 4 Aug 2020</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="campaign-audio col-md-12">
+                <div class="compaign-row align-items-center p-sm-4 p-3 row sp16 mx-0 mb-2">
+                    <div class="my-2 col-xl-4 col-xxl-6 col-lg-6 col-md-8 col-sm-12">
+                        <div class="media align-items-center">
+                            <div class="d-inline-block position-relative donut-chart-sale mr-4">
+                                <span class="donut"
+                                      data-peity='{ "fill": ["rgb(82, 177, 65)", "rgba(236, 236, 236, 1)"],   "innerRadius": 32, "radius": 10}'>5/8</span>
+                                <small>63%</small>
+                            </div>
+                            <div class="media-body">
+                                <p class="text-primary mb-1">#ADS001245</p>
+                                <h3 class="fs-20"><a class="text-black" href="analytics.html">50% OFF Floor Lamp Get it
+                                    Now!</a></h3>
+                                <svg width="17" height="14" viewBox="0 0 17 14" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15 2L5 12.01L2 9.01" stroke="#737373" stroke-width="3"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="fs-14 ml-1">Published on 5 March 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-xxl-6 col-lg-6 col-md-4 col-sm-8 px-3">
+                        <div class="row align-items-center my-2">
+                            <div class="col-6">
+                                <h3 class="fs-20 text-black">$63.04</h3>
+                                <span class="fs-14">Today Spends</span>
+                            </div>
+                            <div class="col-6">
+                                <h3 class="fs-20 text-black">$652.86</h3>
+                                <span class="fs-14">Today Spends</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-xxl-4 col-lg-4 col-md-6 text-center my-2 col-sm-4">
+                        <a class="btn btn-outline-dark p-3 text-ov" href="javascript:void(0);">
+                            <svg class="mr-2 scale5" width="14" height="14" viewBox="0 0 18 22" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1583 3.8476H1.93099C0.971333 3.8476 0.191895 4.62703 0.191895 5.58669V20.2608C0.191895 21.2205 0.971333 21.9999 1.93099 21.9999H12.1583C13.118 21.9999 13.8974 21.2205 13.8974 20.2608V5.58669C13.8929 4.62703 13.1135 3.8476 12.1583 3.8476ZM12.6764 20.2563C12.6764 20.5447 12.4422 20.779 12.1538 20.779H1.92648C1.63814 20.779 1.40385 20.5447 1.40385 20.2563V5.58669C1.40385 5.29834 1.63814 5.06406 1.92648 5.06406H12.1538C12.4422 5.06406 12.6764 5.29834 12.6764 5.58669V20.2563Z"
+                                      fill="#8E8E8E"/>
+                                <path d="M16.069 0H5.84163C4.88198 0 4.10254 0.779439 4.10254 1.73909C4.10254 2.077 4.37286 2.34733 4.71077 2.34733C5.04868 2.34733 5.319 2.077 5.319 1.73909C5.319 1.45075 5.55329 1.21647 5.84163 1.21647H16.069C16.3573 1.21647 16.5916 1.45075 16.5916 1.73909V16.4133C16.5916 16.7016 16.3573 16.9359 16.069 16.9359C15.731 16.9359 15.4607 17.2062 15.4607 17.5441C15.4607 17.882 15.731 18.1524 16.069 18.1524C17.0286 18.1524 17.808 17.3729 17.808 16.4133V1.73909C17.808 0.779439 17.0286 0 16.069 0Z"
+                                      fill="#8E8E8E"/>
+                            </svg>
+                            https://eclan.io/campaign0123...</a>
+                    </div>
+                    <div class="col-xl-4 col-xxl-8 col-lg-8 col-md-6 text-left text-md-right my-2">
+                        <a href="javascript:void(0);" class="btn bgl-primary text-primary cl-btn ">On Going</a>
+                        <a href="javascript:void(0);" class="border border-primary audio-btn ml-2">
+                            <svg width="20" height="18" viewBox="0 0 13 20" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.272217 9.5L0.272153 2.10056C0.272138 0.318742 2.42643 -0.573602 3.68637 0.686334L11.5858 8.58579C12.3669 9.36684 12.3669 10.6332 11.5858 11.4142L3.68636 19.3137C2.42643 20.5736 0.272136 19.6813 0.27215 17.8994L0.272217 9.5Z"
+                                      fill="#52B141"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0);" class="border border-dark audio-btn ml-2">
+                            <svg width="12" height="18" viewBox="0 0 12 18" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 1C8 0.447716 8.44772 0 9 0H11C11.5523 0 12 0.447715 12 1V17C12 17.5523 11.5523 18 11 18H9C8.44772 18 8 17.5523 8 17V1Z"
+                                      fill="#8E8E8E"/>
+                                <path d="M0 1C0 0.447716 0.447715 0 1 0H3C3.55228 0 4 0.447715 4 1V17C4 17.5523 3.55228 18 3 18H1C0.447715 18 0 17.5523 0 17V1Z"
+                                      fill="#8E8E8E"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0);" class="border border-danger audio-btn ml-2">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect width="18" height="18" rx="2" fill="#F83737"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block _js %}
+    <!-- Jquery Validation -->
+    <script src="{% static 'vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <!-- Form validate init -->
+    <script src="{% static 'js/plugins-init/jquery.validate-init.js' %}"></script>
+{% endblock %}

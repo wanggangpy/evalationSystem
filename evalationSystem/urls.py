@@ -19,5 +19,6 @@ from question import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Index.as_view())
+    path('', views.Index.as_view()),
+    path('add_question/', views.AddQuestion.as_view())
 ]

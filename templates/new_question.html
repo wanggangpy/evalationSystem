@@ -6,9 +6,9 @@
     <div class="container-fluid">
         <div class="form-head d-flex mb-2 mb-sm-3 mb-lg-5 align-items-center">
             <div class="mr-auto d-none d-lg-block">
-                <h2 class="text-black font-w600">松材线虫病防控绩效评估综合评价表</h2>
+                <h2 class="text-black font-w600">{{ evaluation_table.title }}</h2>
                 <div>
-                    <a href="javascript:void(0);" class="fs-18 text-primary font-w600">问卷列表 / </a>
+                    <a href="/" class="fs-18 text-primary font-w600">问卷列表 / </a>
                     <a href="javascript:void(0);" class="fs-18">添加新问卷</a>
                 </div>
             </div>
@@ -18,15 +18,48 @@
             <div class="col-xl-9 col-xxl-8 col-lg-8">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card">
+                        {% for content in evaluation_table.evaluation_contents.all %}
+                            <div class="card">
                             <div class="card-header pb-0 border-0">
-                                <h3 class="fs-20 text-black">组织管理</h3>
+                                <div class="row" style="width: 100%">
+                                    <div class="col-md-6">
+                                        <h3 class="fs-20 text-black">{{ content.title }}</h3>
+                                    </div>
+                                    <div class="col-md-6" style="padding-right: 0">
+                                        <button type="button" class="btn btn-primary btn-xs pull-right">添加分部门内容</button>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="card-body">
-
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <div class="nav flex-column nav-pills mb-3">
+                                            {% for sections in content.sections.all %}
+                                                <a href="#section{{ sections.id }}" data-toggle="pill" class="nav-link show {% if forloop.counter == 1 %}active{% endif %}">{{ sections.title }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9">
+                                        <div class="tab-content">
+                                            {% for sections in content.sections.all %}
+                                                <div id="section{{ sections.id }}" class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}">
+                                                {% for items in sections.items.all %}
+                                                    <p style="margin-left: 100px">{{ forloop.counter }}, ({{ items.title }}) {{ items.content }}</p>
+                                                    {% for chooses in items.chooses.all %}
+                                                        <p style="margin-left: 130px">{{ chooses }}（{{ chooses.score }}分）</p>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
+                        {% endfor %}
+
                     </div>
                     <div class="col-xl-12">
                         <div class="card">

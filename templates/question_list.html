@@ -37,12 +37,11 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-valide-with-icon" action="/add_question/" method="post">
+                                        <form class="form-valide-with-icon" action="/add_evaluation_table/" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="val-username1"
-                                                           name="val-username" placeholder="问卷标题">
+                                                    <input type="text" class="form-control" name="title" placeholder="问卷标题">
                                                 </div>
                                             </div>
 
@@ -88,11 +87,11 @@
                 <div class="compaign-row align-items-center p-sm-4 p-3 row sp16 mx-0 mb-2">
                     <div class="my-2 col-xl-4 col-xxl-6 col-lg-6 col-md-8 col-sm-12">
                         <div class="media align-items-center">
-                            <div class="d-inline-block position-relative donut-chart-sale mr-4">
-                                <span class="donut"
-                                      data-peity='{ "fill": ["rgb(82, 177, 65)", "rgba(236, 236, 236, 1)"],   "innerRadius": 32, "radius": 10}'>5/8</span>
-                                <small>63%</small>
-                            </div>
+{#                            <div class="d-inline-block position-relative donut-chart-sale mr-4">#}
+{#                                <span class="donut"#}
+{#                                      data-peity='{ "fill": ["rgb(82, 177, 65)", "rgba(236, 236, 236, 1)"],   "innerRadius": 32, "radius": 10}'>5/8</span>#}
+{#                                <small>63%</small>#}
+{#                            </div>#}
                             <div class="media-body">
                                 <p class="text-primary mb-1">#ADS001245</p>
                                 <h3 class="fs-20"><a class="text-black" href="analytics.html">50% OFF Floor Lamp Get it

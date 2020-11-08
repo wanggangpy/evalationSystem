@@ -21,6 +21,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Index.as_view()),
     re_path(r'new_question/(?P<slug>\w+)/$', views.NewQuestion.as_view()),
+    path('add_evaluation_content/', views.AddEvaluationContent.as_view()),
+    re_path(r'del_evaluation_content/(?P<pk>\w+)/$', views.DelEvaluationContent.as_view()),
     path('add_evaluation_table/', views.AddEvaluationTable.as_view()),
 
+    path('add_section/', views.AddSection.as_view()),
+    re_path(r'del_section/(?P<pk>\w+)/$', views.DelSection.as_view()),
+
+    path('add_item/', views.AddItem.as_view())
 ]

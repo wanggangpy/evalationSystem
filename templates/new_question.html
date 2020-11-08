@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
 
 
+{% load static %}
+{% block _css %}
+    <style>
+        .nav-pills .nav-link > .fa-trash {
+            display: none;
+        }
 
+        .nav-pills .nav-link.active > .fa-trash {
+            display: block;
+        }
+
+    </style>
+{% endblock %}
 {% block container-fluid %}
     <div class="container-fluid">
         <div class="form-head d-flex mb-2 mb-sm-3 mb-lg-5 align-items-center">
@@ -12,55 +24,233 @@
                     <a href="javascript:void(0);" class="fs-18">添加新问卷</a>
                 </div>
             </div>
+            <div>
+                <a href="javascript:void(0);" class="btn btn-primary ml-3" data-toggle="modal"
+                   data-target="#addEvaluationContentModal">添加评估内容</a>
+            </div>
+            <div class="modal fade" id="addEvaluationContentModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">添加评估内容</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-valide-with-icon" action="/add_evaluation_content/" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>评估内容标题：</label>
+                                    <input type="text" class="form-control" name="title">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>评估内容权重：</label>
+                                    <input type="text" class="form-control" name="weights">
+                                </div>
+
+                                <div class="input-group" style="display: none">
+                                    <input type="text" class="form-control" value="{{ evaluation_table.id }}"
+                                           name="evaluation_table" placeholder="问卷标题">
+                                </div>
+                                <button type="submit" class="btn mr-2 btn-primary">确定</button>
+                                <button type="button" class="btn btn-danger light" data-dismiss="modal">取消</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
         <div class="row">
             <div class="col-xl-9 col-xxl-8 col-lg-8">
                 <div class="row">
-                    <div class="col-xl-12">
-                        {% for content in evaluation_table.evaluation_contents.all %}
-                            <div class="card">
-                            <div class="card-header pb-0 border-0">
-                                <div class="row" style="width: 100%">
-                                    <div class="col-md-6">
-                                        <h3 class="fs-20 text-black">{{ content.title }}</h3>
-                                    </div>
-                                    <div class="col-md-6" style="padding-right: 0">
-                                        <button type="button" class="btn btn-primary btn-xs pull-right">添加分部门内容</button>
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-xl-3">
-                                        <div class="nav flex-column nav-pills mb-3">
-                                            {% for sections in content.sections.all %}
-                                                <a href="#section{{ sections.id }}" data-toggle="pill" class="nav-link show {% if forloop.counter == 1 %}active{% endif %}">{{ sections.title }}</a>
-                                            {% endfor %}
+                    {% for content in evaluation_table.evaluation_contents.all %}
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header pb-0 border-0">
+                                    <div class="row" style="width: 100%">
+                                        <div class="col-md-6">
+                                            <h3 class="fs-20 text-black">{{ content.title }}</h3>
+                                        </div>
+                                        <div class="col-md-6" style="padding-right: 0">
+                                            <div class="dropdown custom-dropdown pull-right">
+                                                <div data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-angle-down ml-3"></i>
+                                                </div>
+                                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end"
+                                                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-43px, 24px, 0px);">
+                                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                                       data-target="#addESectionContentModal">添加分部内容</a>
+                                                    <a class="dropdown-item remote-card"
+                                                       content-id={{ content.id }} href="#">删除</a>
+                                                </div>
+                                                <div class="modal fade" id="addESectionContentModal">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">添加分部内容</h5>
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal"><span>&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form class="form-valide-with-icon"
+                                                                      action="/add_section/" method="post">
+                                                                    {% csrf_token %}
+                                                                    <div class="form-group">
+                                                                        <label>分部内容标题：</label>
+                                                                        <input type="text" class="form-control"
+                                                                               name="title">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>分部内容分数：</label>
+                                                                        <input type="text" class="form-control"
+                                                                               name="section_score">
+                                                                    </div>
+
+                                                                    <div class="input-group" style="display: none">
+                                                                        <input type="text" class="form-control"
+                                                                               value="{{ content.id }}"
+                                                                               name="evaluation_content"
+                                                                               placeholder="问卷标题">
+                                                                    </div>
+                                                                    <button type="submit" class="btn mr-2 btn-primary">
+                                                                        确定
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger light"
+                                                                            data-dismiss="modal">取消
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="col-xl-9">
-                                        <div class="tab-content">
-                                            {% for sections in content.sections.all %}
-                                                <div id="section{{ sections.id }}" class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}">
-                                                {% for items in sections.items.all %}
-                                                    <p style="margin-left: 100px">{{ forloop.counter }}, ({{ items.title }}) {{ items.content }}</p>
-                                                    {% for chooses in items.chooses.all %}
-                                                        <p style="margin-left: 130px">{{ chooses }}（{{ chooses.score }}分）</p>
-                                                    {% endfor %}
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-3">
+                                            <div class="nav flex-column nav-pills mb-3">
+                                                {% for sections in content.sections.all %}
+                                                    <a href="#section{{ sections.id }}" data-toggle="pill"
+                                                       class="nav-link show {% if forloop.counter == 1 %}active{% endif %}">{{ sections.title }}
+                                                        <i class="fa fa-archive" data-toggle="modal"
+                                                           data-target="#addItemModel{{ sections.id }}"
+                                                           style="float: right;margin-top: 3px;margin-left: 20px"></i>
+                                                        <i class="fa fa-trash del-section"
+                                                           section-id="{{ sections.id }}"
+                                                           style="float: right;margin-top: 3px;"></i>
+                                                    </a>
+                                                    <div class="modal fade" id="addItemModel{{ sections.id }}">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">添加分项内容</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal"><span>&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form class="form-valide-with-icon"
+                                                                          action="/add_item/" method="post">
+                                                                        {% csrf_token %}
+                                                                        <div class="form-group">
+                                                                            <label>分项内容标题：</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="title">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>分项内容：</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="content">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>分部内容分数：</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="item_score">
+                                                                        </div>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-9">
+                                                                                <label>选项1：</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       name="choose-title1">
+                                                                            </div>
+                                                                            <div class="form-group col-md-3">
+                                                                                <label>分数：</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       name="choose-score1">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-9">
+                                                                                <label>选项2：</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       name="choose-title2">
+                                                                            </div>
+                                                                            <div class="form-group col-md-3">
+                                                                                <label>分数：</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       name="choose-score2">
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="input-group" style="display: none">
+                                                                            <input type="text" class="form-control"
+                                                                                   value="{{ sections.id }}"
+                                                                                   name="section">
+                                                                        </div>
+                                                                        <button type="submit"
+                                                                                class="btn mr-2 btn-primary">
+                                                                            确定
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn btn-danger light"
+                                                                                data-dismiss="modal">取消
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% endfor %}
                                             </div>
-                                            {% endfor %}
+
+                                        </div>
+                                        <div class="col-xl-9">
+                                            <div class="tab-content">
+                                                {% for sections in content.sections.all %}
+                                                    <div id="section{{ sections.id }}"
+                                                         class="tab-pane fade {% if forloop.counter == 1 %}active show{% endif %}">
+                                                        {% for items in sections.items.all %}
+                                                            <p style="margin-left: 100px">{{ forloop.counter }},
+                                                                ({{ items.title }}) {{ items.content }}</p>
+                                                            {% for chooses in items.chooses.all %}
+                                                                <p style="margin-left: 130px">{{ chooses }}（{{ chooses.score }}分）</p>
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                        {% endfor %}
+                    {% endfor %}
 
-                    </div>
+
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body pb-0">
@@ -157,4 +347,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block _js %}
+    <!-- Jquery Validation -->
+    <script src="{% static 'vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <!-- Form validate init -->
+    <script src="{% static 'js/plugins-init/jquery.validate-init.js' %}"></script>
+    <script src="{% static 'js/new_question.js' %}"></script>
 {% endblock %}

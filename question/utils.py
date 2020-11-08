@@ -19,7 +19,7 @@ class MessageMixin:
         messages.error(self.request, error_msg)
 
         if not self.error_url:
-            self.error_url = self.request.session['login_from']
+            self.error_url = self.request.session['from_url']
 
         return redirect(self.error_url)
 
